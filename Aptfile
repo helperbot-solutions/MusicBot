@@ -1,0 +1,8 @@
+build-essential
+unzip
+software-properties-common
+ffmpeg
+libopus-dev
+libffi-dev
+libsodium-dev
+libopus0
