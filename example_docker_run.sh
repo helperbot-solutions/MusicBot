@@ -5,4 +5,4 @@
 docker build -t musicbot .
 
 # Run docker container:
-docker run -d -v $(pwd)/config:/musicBot/config musicbot
+docker run -d -e "DISCORD_MUSICBOT_TOKEN=<token>" -e "DISCORD_MUSICBOT_OWNER=<owner_id>" -v $(pwd)/config:/musicBot/config musicbot
