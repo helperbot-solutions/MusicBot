@@ -2,6 +2,8 @@
 *.pyc
 ~*/
 
+docker_run.sh
+
 audio_cache/
 dectalk/
 
