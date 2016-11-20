@@ -56,13 +56,29 @@ class Config:
                 preface="An error has occured parsing the config:\n"
             )
 
-        self._email = config.get('Credentials', 'Email', fallback=ConfigDefaults.email)
-        self._password = config.get('Credentials', 'Password', fallback=ConfigDefaults.password)
-        self._login_token = config.get('Credentials', 'Token', fallback=ConfigDefaults.token)
+        try:
+            self._email = os.environ.get('DISCORD_MUSICBOT_EMAIL')
+            self._password = os.environ.get('DISCORD_MUSICBOT_PASSWORD')
+        except KeyError:
+            self._email = config.get('Credentials', 'Email',
+                                     fallback=ConfigDefaults.email)
+            self._password = config.get('Credentials', 'Password',
+                                        fallback=ConfigDefaults.password)
+
+        try:
+            self._login_token = os.environ.get('DISCORD_MUSICBOT_TOKEN')
+        except KeyError:
+            self._login_token = config.get('Credentials', 'Token',
+                                           fallback=ConfigDefaults.token)
 
         self.auth = None
 
-        self.owner_id = config.get('Permissions', 'OwnerID', fallback=ConfigDefaults.owner_id)
+        try:
+            self.owner_id = os.environ.get('DISCORD_MUSICBOT_OWNER')
+        except KeyError:
+            self.owner_id = config.get('Permissions', 'OwnerID',
+                                       fallback=ConfigDefaults.owner_id)
+
         self.command_prefix = config.get('Chat', 'CommandPrefix', fallback=ConfigDefaults.command_prefix)
         self.bound_channels = config.get('Chat', 'BindToChannels', fallback=ConfigDefaults.bound_channels)
         self.autojoin_channels =  config.get('Chat', 'AutojoinChannels', fallback=ConfigDefaults.autojoin_channels)
